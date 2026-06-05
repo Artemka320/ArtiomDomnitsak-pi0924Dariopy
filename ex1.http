@@ -1,8 +1,7 @@
 POST http://localhost:2525/imposters
 Content-Type: application/json
-
+ 
 {
-  "name": "API Carros",
   "port": 4549,
   "protocol": "http",
   "stubs": [
@@ -11,10 +10,7 @@ Content-Type: application/json
         {
           "equals": {
             "method": "GET",
-            "path": "/api/cars",
-            "query": {
-              "brand": "Toyota"
-            }
+            "path": "/api/marcas"
           }
         }
       ],
@@ -26,13 +22,12 @@ Content-Type: application/json
               "Content-Type": "application/json"
             },
             "body": {
-              "brand": "Toyota",
-              "results": [
-                {
-                  "id": 1,
-                  "modelo": "Corolla",
-                  "preco": 25000
-                }
+              "marcas": [
+                "Toyota",
+                "Audi",
+                "Ford",
+                "Volvo",
+                "Honda"
               ]
             }
           }
@@ -41,3 +36,8 @@ Content-Type: application/json
     }
   ]
 }
+
+###
+GET http://localhost:4549/api/marcas
+Content-Type: application/json
+
