@@ -1,0 +1,26 @@
+{
+      "predicates": [
+        {
+          "and": [
+            { "equals": { "method": "POST", "path": "/api/users" } },
+            { "equals": { "headers": { "Content-Type": "application/json" } } }
+          ]
+        }
+      ],
+      "responses": [
+        {
+          "is": {
+            "statusCode": 201,
+            "headers": {
+              "Content-Type": "application/json",
+              "Location": "/api/users/12345"
+            },
+            "body": {
+              "id": "12345",
+              "status": "created",
+              "message": "Utilizador criado com sucesso"
+            }
+          }
+        }
+      ]
+    },
