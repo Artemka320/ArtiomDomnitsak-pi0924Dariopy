@@ -1,0 +1,74 @@
+POST http://localhost:2525/imposters
+Content-Type: application/json
+
+{
+  "port": 4560,
+  "protocol": "http",
+  "stubs": [
+    {
+      "predicates": [
+        {
+          "equals": {
+            "method": "GET",
+            "path": "/api/profile"
+          }
+        },
+        {
+          "deepEquals": {
+            "headers": {
+              "Authorization": "Bearer validtoken"
+            }
+          }
+        }
+      ],
+      "responses": [
+        {
+          "is": {
+            "statusCode": 200,
+            "headers": {
+              "Content-Type": "application/json"
+            },
+            "body": {
+              "username": "admin",
+              "email": "admin@example.com",
+              "id": 1
+            }
+          }
+        }
+      ]
+    },
+    {
+      "predicates": [
+        {
+          "equals": {
+            "method": "GET",
+            "path": "/api/profile"
+          }
+        },
+        {
+          "not": {
+            "deepEquals": {
+              "headers": {
+                "Authorization": "Bearer validtoken"
+              }
+            }
+          }
+        }
+      ],
+      "responses": [
+        {
+          "is": {
+            "statusCode": 403,
+            "headers": {
+              "Content-Type": "application/json"
+            },
+            "body": {
+              "error": "forbidden",
+              "message": "Token de autorização inválido ou ausente."
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
