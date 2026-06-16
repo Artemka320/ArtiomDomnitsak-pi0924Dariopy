@@ -1,23 +1,45 @@
+POST http://localhost:2525/imposters
+Content-Type: application/json
+
 {
+  "port": 4556,
+  "protocol": "http",
+  "stubs": [
+    {
       "predicates": [
         {
-          "and": [
-            { "equals": { "method": "POST", "path": "/api/temperature" } },
-            { "equals": { "headers": { "Content-Type": "application/json" } } },
-            { "contains": { "body": "\"value\"" } }
-          ]
+          "equals": {
+            "method": "POST",
+            "path": "/api/temperature"
+          }
+        },
+        {
+          "deepEquals": {
+            "headers": {
+              "Content-Type": "application/json"
+            }
+          }
+        },
+        {
+          "contains": {
+            "body": "\"value\""
+          }
         }
       ],
       "responses": [
         {
           "is": {
             "statusCode": 201,
-            "headers": { "Content-Type": "application/json" },
+            "headers": {
+              "Content-Type": "application/json"
+            },
             "body": {
               "status": "created",
-              "message": "Medição registada com sucesso"
+              "message": "Medição de temperatura registada com sucesso."
             }
           }
         }
       ]
     }
+  ]
+}
